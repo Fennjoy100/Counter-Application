@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function App() {
   const [count, setCount] = useState(0);
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const audioRef = useRef(null);
   const maxVisualLevel = 10;
   const waterLevel = Math.min((count / maxVisualLevel) * 100, 100);
   const fireflies = [
@@ -31,8 +33,35 @@ export default function App() {
     setCount(0);
   };
 
+  const toggleAudio = async () => {
+    if (!audioRef.current) {
+      return;
+    }
+
+    if (isPlayingAudio) {
+      audioRef.current.pause();
+      setIsPlayingAudio(false);
+      return;
+    }
+
+    try {
+      await audioRef.current.play();
+      setIsPlayingAudio(true);
+    } catch (error) {
+      setIsPlayingAudio(false);
+    }
+  };
+
   return (
     <main className="app-shell">
+      <audio
+        ref={audioRef}
+        src="/forest-audio.mp4"
+        loop
+        onPause={() => setIsPlayingAudio(false)}
+        onPlay={() => setIsPlayingAudio(true)}
+      />
+
       <div className="forest-scene" aria-hidden="true">
         <div className="star-layer star-layer-one"></div>
         <div className="star-layer star-layer-two"></div>
@@ -83,6 +112,15 @@ export default function App() {
       </div>
 
       <section className="counter-card">
+        <div className="top-bar">
+          <button
+            type="button"
+            className={`music-toggle ${isPlayingAudio ? "active" : ""}`}
+            onClick={toggleAudio}
+          >
+            {isPlayingAudio ? "Pause Music" : "Play Music"}
+          </button>
+        </div>
         <p className="eyebrow">FENNJOY FOREST</p>
         <h1>Counter Application</h1>
         <p className="description">
