@@ -481,6 +481,13 @@ button {
   margin-bottom: 8px;
 }
 
+.audio-note {
+  margin: 0 0 10px;
+  color: #ffe28f;
+  font-size: 0.92rem;
+  text-align: center;
+}
+
 .music-toggle {
   border: 1px solid rgba(199, 240, 191, 0.2);
   border-radius: 999px;

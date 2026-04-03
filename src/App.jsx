@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function App() {
   const [count, setCount] = useState(0);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [audioError, setAudioError] = useState("");
   const audioRef = useRef(null);
   const maxVisualLevel = 10;
   const waterLevel = Math.min((count / maxVisualLevel) * 100, 100);
@@ -33,6 +34,14 @@ export default function App() {
     setCount(0);
   };
 
+  useEffect(() => {
+    if (!audioRef.current) {
+      return;
+    }
+
+    audioRef.current.load();
+  }, []);
+
   const toggleAudio = async () => {
     if (!audioRef.current) {
       return;
@@ -41,14 +50,17 @@ export default function App() {
     if (isPlayingAudio) {
       audioRef.current.pause();
       setIsPlayingAudio(false);
+      setAudioError("");
       return;
     }
 
     try {
       await audioRef.current.play();
       setIsPlayingAudio(true);
+      setAudioError("");
     } catch (error) {
       setIsPlayingAudio(false);
+      setAudioError("Audio could not play on this device or browser.");
     }
   };
 
@@ -56,11 +68,14 @@ export default function App() {
     <main className="app-shell">
       <audio
         ref={audioRef}
-        src="/forest-audio.mp4"
+        preload="auto"
         loop
         onPause={() => setIsPlayingAudio(false)}
         onPlay={() => setIsPlayingAudio(true)}
-      />
+        onError={() => setAudioError("Audio file failed to load. Please redeploy the latest version.")}
+      >
+        <source src="/forest-audio.mp4" type="audio/mp4" />
+      </audio>
 
       <div className="forest-scene" aria-hidden="true">
         <div className="star-layer star-layer-one"></div>
@@ -121,6 +136,7 @@ export default function App() {
             {isPlayingAudio ? "Pause Music" : "Play Music"}
           </button>
         </div>
+        {audioError ? <p className="audio-note">{audioError}</p> : null}
         <p className="eyebrow">FENNJOY FOREST</p>
         <h1>Counter Application</h1>
         <p className="description">
