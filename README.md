@@ -12,6 +12,7 @@ FENNJOY FOREST COUNTER is a modern front-end React project that showcases:
 
 - Dynamic counter updates using the `useState` hook
 - A responsive forest-themed interface for mobile, tablet, and desktop
+- Integrated background music with in-page playback control
 - Animated fireflies moving upward and downward in the background
 - Glowing stars and shooting stars across the night sky
 - Layered night forest scenery with trees, mist, and ground depth
@@ -49,6 +50,13 @@ This project demonstrates strong fundamentals in React component structure, stat
 - Max Level Behavior: When the water reaches the maximum visual level, a fish appears.
 - Fish Motion: The fish moves up and down inside the round water area.
 
+### 🔹 Music Integration
+
+- Background Audio: Custom audio is embedded directly into the website.
+- Music Toggle Button: Users can play or pause the music anytime.
+- Loop Playback: The music continues in a loop while enabled.
+- Glowing Control Button: The play button includes a glow effect that matches the forest theme.
+
 ### 🔹 Forest Background Scene
 
 - Night Sky Theme: The page uses a cool blue-gray night sky.
@@ -77,6 +85,7 @@ This project demonstrates strong fundamentals in React component structure, stat
 - UI Feedback: Added conditional rendering for the minimum limit message
 - Visual Design: Built a forest-at-night concept using gradients, layering, and glow effects
 - Animation System: Created motion for fireflies, stars, shooting stars, trees, waves, and fish using CSS keyframes
+- Media Integration: Added looping background music with a custom UI control
 - Responsive Styling: Tuned the layout for mobile, tablet, and desktop screen sizes
 
 ## 📂 Project Structure
@@ -89,6 +98,8 @@ F001/
 ├── vite.config.js           # Vite configuration
 ├── vercel.json              # Vercel deployment configuration
 ├── README.md                # Project documentation
+├── public/
+│   └── forest-audio.mp4     # Background audio for the music player
 └── src/
     ├── App.jsx              # Main app logic, counter behavior, and animated scene markup
     ├── main.jsx             # React root entry point
@@ -109,6 +120,10 @@ Learned how to show UI feedback such as the minimum limit message and fish anima
 
 Gained practical experience building animated backgrounds, glowing effects, wave motion, and object movement using keyframes.
 
+### Media Controls
+
+Learned how to integrate local audio into a React app and control playback with a custom play and pause button.
+
 ### Responsive Styling
 
 Built a more polished and adaptable layout that works consistently across mobile, tablet, and desktop screens.
@@ -125,6 +140,7 @@ Strengthened front-end design skills by combining gradients, depth, shadows, ove
 - Add Night/Day Toggle: Let users switch between forest day and forest night themes
 - Save Counter State: Persist the counter using localStorage
 - Add Custom Max Limit: Allow users to set the maximum water level threshold
+- Add Volume Control: Let users adjust audio volume directly from the interface
 
 ## ▶ Running the Project
 
@@ -165,4 +181,5 @@ To deploy:
 - The visual water level is designed around a maximum display level of `10`.
 - If the counter goes above `10`, the water remains visually full.
 - The fish appears only when the circular water level reaches the maximum visual level.
+- Background audio starts when the user presses the music button because browsers usually block autoplay with sound.
 - For best results, preview responsiveness in browser developer tools for mobile, tablet, and desktop.
